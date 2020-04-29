@@ -39,6 +39,9 @@
                                     <constraint firstAttribute="width" constant="150" id="Mi1-QX-rBQ"/>
                                 </constraints>
                                 <state key="normal" image="camera"/>
+                                <connections>
+                                    <action selector="cameraPressed:" destination="b1V-3h-L8t" eventType="touchUpInside" id="FBR-2i-yUh"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -49,10 +52,48 @@
                         <viewLayoutGuide key="safeArea" id="8yb-Y8-yA2"/>
                     </view>
                     <navigationItem key="navigationItem" id="J2a-dK-4WX"/>
+                    <connections>
+                        <outlet property="cameraButton" destination="tkr-tr-gUK" id="ZKX-5U-mDd"/>
+                        <segue destination="HTE-bk-hlI" kind="show" identifier="goToPDF" id="eVu-vm-kxZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eP8-Re-4Hf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2640.8000000000002" y="74.212893553223395"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="dgJ-Di-H2w">
+            <objects>
+                <viewController id="HTE-bk-hlI" customClass="PDFViewController" customModule="DocumentPDF" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1Qh-Dj-Qd7">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="puy-hw-Nqq">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="puy-hw-Nqq" firstAttribute="trailing" secondItem="QMJ-aA-BXh" secondAttribute="trailing" id="3Bm-0R-d99"/>
+                            <constraint firstItem="puy-hw-Nqq" firstAttribute="leading" secondItem="QMJ-aA-BXh" secondAttribute="leading" id="LCM-TV-wB1"/>
+                            <constraint firstItem="puy-hw-Nqq" firstAttribute="top" secondItem="QMJ-aA-BXh" secondAttribute="top" id="mvO-ym-1py"/>
+                            <constraint firstItem="puy-hw-Nqq" firstAttribute="bottom" secondItem="QMJ-aA-BXh" secondAttribute="bottom" id="wp6-Wa-VWe"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="QMJ-aA-BXh"/>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="puy-hw-Nqq" id="NV4-Ms-Ql5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9xs-gw-WxL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3712.8000000000002" y="72.413793103448285"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Lhk-mb-FHy">
