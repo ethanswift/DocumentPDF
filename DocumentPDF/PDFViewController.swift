@@ -26,20 +26,26 @@ class PDFViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
         
         webView.navigationDelegate = self
         webView.uiDelegate = self
+        webView.backgroundColor = #colorLiteral(red: 0.926155746, green: 0.9410773516, blue: 0.9455420375, alpha: 1)
+        
+        view.backgroundColor = #colorLiteral(red: 0.926155746, green: 0.9410773516, blue: 0.9455420375, alpha: 1)
         
         // Do any additional setup after loading the view.
     }
     
     func presentAlert () {
-        let alert = UIAlertController(title: "File Name", message: "Enter A Name For Your File", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "File Name", message: "Choose A Name For Your File", preferredStyle: .actionSheet)
         alert.addTextField { (textFiled) in
             textFiled.placeholder = "Name"
             self.pdfFileName = textFiled.text!
+            self.navigationController?.title = textFiled.text!
         }
         alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { (alertAction) in
             self.savePDF()
         }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (alertAction) in
+            self.webView.isHidden = true
+        }))
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -50,6 +56,7 @@ class PDFViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
             let pdfURL = documentDirectory?.appendingPathComponent(pdfFileName)
             let pdf = PDFDocument(data: (resultImage?.jpegData(compressionQuality: 1))!)
             pdf?.write(to: pdfURL!)
+            self.webView.load(URLRequest(url: pdfURL!))
         }
     }
     
