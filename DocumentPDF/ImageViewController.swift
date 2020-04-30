@@ -55,7 +55,11 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         let rectangleRequest = VNDetectRectanglesRequest { (request, error) in
             if error != nil {}
             let results = request.results as! [VNRectangleObservation]
-            let rec = CGRect(origin: (results.first?.topLeft)!, size: CGSize(width: ((results.first?.topRight.x)! - (results.first?.topLeft.x)!) , height: ((results.first?.topLeft.y)! - (results.first?.bottomLeft.y)!)))
+            guard let result = results.first else {
+                // alert 
+                return
+            }
+            let rec = CGRect(origin: (result.topLeft), size: CGSize(width: ((result.topRight.x) - (result.topLeft.x)) , height: ((result.topLeft.y) - (result.bottomLeft.y))))
             finalImage = UIImage(cgImage: (image.cgImage?.cropping(to: rec))!)
         }
         

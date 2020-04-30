@@ -18,17 +18,16 @@ class PDFViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
     
     @IBOutlet weak var webView: WKWebView!
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        presentAlert()
-        
+
         webView.navigationDelegate = self
         webView.uiDelegate = self
         webView.backgroundColor = #colorLiteral(red: 0.926155746, green: 0.9410773516, blue: 0.9455420375, alpha: 1)
         
-        view.backgroundColor = #colorLiteral(red: 0.926155746, green: 0.9410773516, blue: 0.9455420375, alpha: 1)
+        self.view.backgroundColor = #colorLiteral(red: 0.926155746, green: 0.9410773516, blue: 0.9455420375, alpha: 1)
+        
+         presentAlert()
         
         // Do any additional setup after loading the view.
     }
