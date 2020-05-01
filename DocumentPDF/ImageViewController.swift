@@ -39,8 +39,8 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         imagePicker.dismiss(animated: true, completion: nil)
         if originalImage == nil { print("Error Not Found An Image")}
             imageView.image = originalImage
-        let originalImageCI = CIImage(image: originalImage)
-//            resultImage = rectDetection(image: originalImage)
+        if let originalImageCI = CIImage(image: originalImage) {
+            resultImage = rectDetection(image: originalImageCI)
         }
         if resultImage == nil {
             print("Error; No image has been found")
