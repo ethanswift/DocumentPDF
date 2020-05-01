@@ -15,9 +15,11 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
     
     var resultImage: UIImage?
     
-    @IBOutlet weak var cameraButton: UIButton!
     
-
+    @IBOutlet weak var cameraButtonNav: UIBarButtonItem!
+    
+    @IBOutlet weak var imageView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,18 +30,24 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         // Do any additional setup after loading the view.
     }
     
-    @IBAction func cameraPressed(_ sender: UIButton) {
-        self.imagePicker.takePicture()
+    @IBAction func cameraNavPressed(_ sender: UIBarButtonItem) {
+         self.present(imagePicker, animated: true, completion: nil)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        let image = info[UIImagePickerController.InfoKey.editedImage] as! CIImage
-        resultImage = rectDetection(image: image)
-        if resultImage != nil {
+         let originalImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+        imagePicker.dismiss(animated: true, completion: nil)
+        if originalImage == nil { print("Error Not Found An Image")}
+            imageView.image = originalImage
+        let originalImageCI = CIImage(image: originalImage)
+//            resultImage = rectDetection(image: originalImage)
+        }
+        if resultImage == nil {
+            print("Error; No image has been found")
+        } else if resultImage != nil {
             performSegue(withIdentifier: "goToPDF", sender: self)
         }
-        imagePicker.dismiss(animated: true, completion: nil)
-
+        
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
