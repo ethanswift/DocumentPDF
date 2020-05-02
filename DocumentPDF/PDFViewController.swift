@@ -18,8 +18,15 @@ class PDFViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
     
     @IBOutlet weak var webView: WKWebView!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if resultImage != nil {
+            print(resultImage!.pngData()!)
+        } else {
+            print("Result Image is empty!")
+        }
 
         webView.navigationDelegate = self
         webView.uiDelegate = self
@@ -33,7 +40,7 @@ class PDFViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
     }
     
     func presentAlert () {
-        let alert = UIAlertController(title: "File Name", message: "Choose A Name For Your File", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "File Name", message: "Choose A Name For Your File", preferredStyle: .alert)
         alert.addTextField { (textFiled) in
             textFiled.placeholder = "Name"
             self.pdfFileName = textFiled.text!
@@ -49,13 +56,31 @@ class PDFViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
     }
     
     func savePDF () {
+        if self.resultImage == nil {
+            print("No Image Has been recieved!")
+        }
         if self.resultImage != nil {
             let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+            print(documentDirectory!)
             let pdfFileName = self.pdfFileName
+            print(pdfFileName)
             let pdfURL = documentDirectory?.appendingPathComponent(pdfFileName)
+            print(pdfURL!)
             let pdf = PDFDocument(data: (resultImage?.jpegData(compressionQuality: 1))!)
+            print(pdf)
             pdf?.write(to: pdfURL!)
-            self.webView.load(URLRequest(url: pdfURL!))
+            if pdf != nil {
+                print(pdf!, "PDF has been created")
+                print(pdfURL!)
+                do {
+                    let pdfData = try Data(contentsOf: pdfURL!)
+                    self.webView.load(pdfData, mimeType: "application/pdf", characterEncodingName: "utf-8", baseURL: pdfURL!)
+//                    self.webView.load(URLRequest(url: pdfURL!))
+                    self.view.addSubview(webView)
+                } catch {
+                    fatalError("Error from here")
+                }
+            }
         }
     }
     

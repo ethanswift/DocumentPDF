@@ -61,10 +61,13 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         let imageHandler = VNImageRequestHandler(ciImage: image, options: [:])
         
         let rectangleRequest = VNDetectRectanglesRequest { (request, error) in
-            if error != nil {}
+            if error != nil {
+                print(error?.localizedDescription)
+            }
             let results = request.results as! [VNRectangleObservation]
             guard let result = results.first else {
-                // alert 
+                // alert
+                print(error?.localizedDescription, "No Results Was Found!")
                 return
             }
             let rec = CGRect(origin: (result.topLeft), size: CGSize(width: ((result.topRight.x) - (result.topLeft.x)) , height: ((result.topLeft.y) - (result.bottomLeft.y))))
