@@ -18,6 +18,8 @@ class PDFViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
     
     @IBOutlet weak var webView: WKWebView!
     
+    @IBOutlet weak var imageView: UIImageView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +35,8 @@ class PDFViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
         webView.backgroundColor = #colorLiteral(red: 0.926155746, green: 0.9410773516, blue: 0.9455420375, alpha: 1)
         
         self.view.backgroundColor = #colorLiteral(red: 0.926155746, green: 0.9410773516, blue: 0.9455420375, alpha: 1)
+        
+        self.imageView.image = self.resultImage
         
          presentAlert()
         
@@ -63,27 +67,31 @@ class PDFViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
             let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
             print(documentDirectory!)
             let pdfFileName = self.pdfFileName
-            print(pdfFileName)
-            let pdfURL = documentDirectory?.appendingPathComponent(pdfFileName)
+            print(self.pdfFileName)
+            let pdfURL = documentDirectory?.appendingPathComponent("\(self.pdfFileName).pdf")
             print(pdfURL!)
-            let pdf = PDFDocument(data: (resultImage?.jpegData(compressionQuality: 1))!)
-            print(pdf)
-            pdf?.write(to: pdfURL!)
-            if pdf != nil {
-                print(pdf!, "PDF has been created")
+            let pdf = PDFDocument()
+            let pdfPage = PDFPage(image: resultImage!)
+            pdf.insert(pdfPage!, at: 0)
+            let pdfData = pdf.dataRepresentation()
+            do {
+                try pdfData?.write(to: pdfURL!)
+            } catch {
+                fatalError("Error!! writing data")
+            }
+//            let pdf = PDFDocument(data: (resultImage?.jpegData(compressionQuality: 1)?.base64EncodedData())!)
+//            //(resultImage?.jpegData(compressionQuality: 1))!
+//            print(pdf)
+//            pdf?.write(to: pdfURL!)
+            if pdfData != nil {
+                print(pdfData!, "PDF Data available")
                 print(pdfURL!)
-                do {
-                    let pdfData = try Data(contentsOf: pdfURL!)
-                    self.webView.load(pdfData, mimeType: "application/pdf", characterEncodingName: "utf-8", baseURL: pdfURL!)
-//                    self.webView.load(URLRequest(url: pdfURL!))
+                self.webView.load(pdfData!, mimeType: "application/pdf", characterEncodingName: "utf-8", baseURL: pdfURL!)
                     self.view.addSubview(webView)
-                } catch {
-                    fatalError("Error from here")
-                }
+               
             }
         }
     }
-    
     /*
     // MARK: - Navigation
 
