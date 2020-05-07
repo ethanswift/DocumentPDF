@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7FBA0CC102576FB16057F137 /* Pods_DocumentPDF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEF78DF89B6EA60B41E439AB /* Pods_DocumentPDF.framework */; };
 		C0A6C7F62462CCC70084111E /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A6C7F52462CCC70084111E /* InitialViewController.swift */; };
 		C0F8458724585A9C00780563 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F8458624585A9C00780563 /* AppDelegate.swift */; };
 		C0F8458924585A9C00780563 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F8458824585A9C00780563 /* ViewController.swift */; };
@@ -18,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1C1C63563EB53BF9E67E28EB /* Pods-DocumentPDF.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DocumentPDF.release.xcconfig"; path = "Target Support Files/Pods-DocumentPDF/Pods-DocumentPDF.release.xcconfig"; sourceTree = "<group>"; };
+		B27309A570612706B9B823A1 /* Pods-DocumentPDF.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DocumentPDF.debug.xcconfig"; path = "Target Support Files/Pods-DocumentPDF/Pods-DocumentPDF.debug.xcconfig"; sourceTree = "<group>"; };
 		C0A6C7F52462CCC70084111E /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
 		C0F8458324585A9C00780563 /* DocumentPDF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DocumentPDF.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0F8458624585A9C00780563 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -28,6 +31,7 @@
 		C0F8459224585A9F00780563 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0F8459824585CE700780563 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		C0F8459A24595ED800780563 /* PDFViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFViewController.swift; sourceTree = "<group>"; };
+		CEF78DF89B6EA60B41E439AB /* Pods_DocumentPDF.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DocumentPDF.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,17 +39,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7FBA0CC102576FB16057F137 /* Pods_DocumentPDF.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		60843FF6DD54590949BC39B9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B27309A570612706B9B823A1 /* Pods-DocumentPDF.debug.xcconfig */,
+				1C1C63563EB53BF9E67E28EB /* Pods-DocumentPDF.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		736951C2154D17A6F53B6F04 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CEF78DF89B6EA60B41E439AB /* Pods_DocumentPDF.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C0F8457A24585A9B00780563 = {
 			isa = PBXGroup;
 			children = (
 				C0F8458524585A9C00780563 /* DocumentPDF */,
 				C0F8458424585A9C00780563 /* Products */,
+				60843FF6DD54590949BC39B9 /* Pods */,
+				736951C2154D17A6F53B6F04 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -80,6 +105,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C0F8459524585A9F00780563 /* Build configuration list for PBXNativeTarget "DocumentPDF" */;
 			buildPhases = (
+				4AE0578462DF3F758955C8E4 /* [CP] Check Pods Manifest.lock */,
 				C0F8457F24585A9C00780563 /* Sources */,
 				C0F8458024585A9C00780563 /* Frameworks */,
 				C0F8458124585A9C00780563 /* Resources */,
@@ -138,6 +164,31 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4AE0578462DF3F758955C8E4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DocumentPDF-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C0F8457F24585A9C00780563 /* Sources */ = {
@@ -292,6 +343,7 @@
 		};
 		C0F8459624585A9F00780563 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B27309A570612706B9B823A1 /* Pods-DocumentPDF.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -310,6 +362,7 @@
 		};
 		C0F8459724585A9F00780563 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1C1C63563EB53BF9E67E28EB /* Pods-DocumentPDF.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
