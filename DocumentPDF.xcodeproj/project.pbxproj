@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C0A6C7F62462CCC70084111E /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A6C7F52462CCC70084111E /* InitialViewController.swift */; };
 		C0F8458724585A9C00780563 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F8458624585A9C00780563 /* AppDelegate.swift */; };
 		C0F8458924585A9C00780563 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F8458824585A9C00780563 /* ViewController.swift */; };
 		C0F8458C24585A9C00780563 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0F8458A24585A9C00780563 /* Main.storyboard */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C0A6C7F52462CCC70084111E /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
 		C0F8458324585A9C00780563 /* DocumentPDF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DocumentPDF.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0F8458624585A9C00780563 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0F8458824585A9C00780563 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 				C0F8458A24585A9C00780563 /* Main.storyboard */,
 				C0F8459A24595ED800780563 /* PDFViewController.swift */,
 				C0F8459824585CE700780563 /* ImageViewController.swift */,
+				C0A6C7F52462CCC70084111E /* InitialViewController.swift */,
 				C0F8458D24585A9F00780563 /* Assets.xcassets */,
 				C0F8458F24585A9F00780563 /* LaunchScreen.storyboard */,
 				C0F8459224585A9F00780563 /* Info.plist */,
@@ -141,6 +144,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0A6C7F62462CCC70084111E /* InitialViewController.swift in Sources */,
 				C0F8458924585A9C00780563 /* ViewController.swift in Sources */,
 				C0F8459924585CE700780563 /* ImageViewController.swift in Sources */,
 				C0F8458724585A9C00780563 /* AppDelegate.swift in Sources */,
