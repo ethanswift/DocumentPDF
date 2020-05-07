@@ -11,7 +11,6 @@ import UIKit
 class InitialViewController: UIViewController {
     
     @IBOutlet weak var descriptionLabel: UILabel!
-    // your camera shouldn't have angle with the document; in order to capture most accurately; slanted document pictures usually don't return whole image of your document 
     
     @IBOutlet weak var segmentControl: UISegmentedControl!
     
@@ -21,6 +20,11 @@ class InitialViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+           self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+           self.navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 0.926155746, green: 0.9410773516, blue: 0.9455420375, alpha: 1)
+           self.navigationController?.navigationBar.prefersLargeTitles = true
         
         cameraButton.layer.cornerRadius = 15
         self.view.backgroundColor = #colorLiteral(red: 0.926155746, green: 0.9410773516, blue: 0.9455420375, alpha: 1)

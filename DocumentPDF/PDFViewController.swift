@@ -23,6 +23,11 @@ class PDFViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+           self.navigationController?.navigationBar.shadowImage = UIImage()
+           self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+           self.navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 0.926155746, green: 0.9410773516, blue: 0.9455420375, alpha: 1)
+           self.navigationController?.navigationBar.prefersLargeTitles = true
+        
         if resultImage != nil {
             print(resultImage!.pngData()!)
         } else {

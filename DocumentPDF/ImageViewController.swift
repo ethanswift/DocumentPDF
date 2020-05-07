@@ -23,20 +23,31 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         super.viewDidLoad()
         
         navigationController?.delegate = self
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 0.926155746, green: 0.9410773516, blue: 0.9455420375, alpha: 1)
+        self.navigationController?.navigationBar.prefersLargeTitles = true
         
         imagePicker.delegate = self
         imagePicker.sourceType = .camera
+        imagePicker.cameraCaptureMode = .photo
         if segmentControl == false {
            imagePicker.allowsEditing = false
+            presentAlert()
         } else {
             imagePicker.allowsEditing = true
+            self.present(imagePicker, animated: true, completion: nil)
         }
-        imagePicker.cameraCaptureMode = .photo
-//        imagePicker.cameraDevice = .rear
-        
-          self.present(imagePicker, animated: true, completion: nil)
+
 
         // Do any additional setup after loading the view.
+    }
+    
+    func presentAlert () {
+        let alert = UIAlertController(title: "Camera Orientation", message: "In Order To Capture Most Accurately, Your Camera Shouldn't Have Angle With The Document. Slanted Document Pictures Usually Results In Incomplete Images.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+            self.present(self.imagePicker, animated: true, completion: nil)
+        }))
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
