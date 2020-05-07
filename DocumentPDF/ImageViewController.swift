@@ -39,20 +39,22 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         // Do any additional setup after loading the view.
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         
         if self.segmentControl == false {
-            var originalImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
-            imagePicker.dismiss(animated: true, completion: nil)
-            if originalImage == nil { print("Error Not Found An Image")}
-            imageView.contentMode = .scaleAspectFit
-            imageView.backgroundColor = UIColor.lightGray
-//            originalImage = UIImage(cgImage: originalImage.cgImage!, scale: originalImage.scale, orientation: .up)
-            imageView.image = originalImage
-            if let originalImageCI = CIImage(image: originalImage) {
-                self.resultImage = rectDetection(image: originalImageCI)
-                self.imageView.image = resultImage
+            if var originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+                           imagePicker.dismiss(animated: true, completion: nil)
+                            if originalImage == nil { print("Error Not Found An Image")}
+                            imageView.contentMode = .scaleAspectFit
+                            imageView.backgroundColor = UIColor.lightGray
+                //            originalImage = UIImage(cgImage: originalImage.cgImage!, scale: originalImage.scale, orientation: .up)
+                            imageView.image = originalImage
+                            if let originalImageCI = CIImage(image: originalImage) {
+                                self.resultImage = rectDetection(image: originalImageCI)
+                                self.imageView.image = resultImage
+                            }
             }
+ 
 //        if resultImage == nil {
 //            print("Error; No image has been found")
 //        } else if resultImage != nil {
@@ -61,18 +63,20 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
 //        }
             
         } else if self.segmentControl == true {
-            var editedImage = info[UIImagePickerController.InfoKey.editedImage] as! UIImage
-            imagePicker.dismiss(animated: true, completion: nil)
-            if editedImage == nil { print("Error Not Found An Image")} else {
-                self.imageView.contentMode = .scaleAspectFit
-                self.imageView.backgroundColor = UIColor.lightGray
-//            editedImage = UIImage(cgImage: originalImage.cgImage!, scale: originalImage.scale, orientation: .up)
-                self.imageView.image = editedImage
-                self.resultImage = editedImage
-                if self.resultImage != nil {
-                  performSegue(withIdentifier: "goToPDF", sender: self)
-                }
+            if var editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+                         imagePicker.dismiss(animated: true, completion: nil)
+                            if editedImage == nil { print("Error Not Found An Image")} else {
+                                self.imageView.contentMode = .scaleAspectFit
+                                self.imageView.backgroundColor = UIColor.lightGray
+                //            editedImage = UIImage(cgImage: originalImage.cgImage!, scale: originalImage.scale, orientation: .up)
+                                self.imageView.image = editedImage
+                                self.resultImage = editedImage
+                                if self.resultImage != nil {
+                                  performSegue(withIdentifier: "goToPDF", sender: self)
+                                }
+                            }
             }
+   
         }
     }
     
@@ -90,59 +94,50 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
             if error != nil {
                 print(error?.localizedDescription)
             }
-            let results = request.results as! [VNRectangleObservation]
-            print(results)
-            if results == [] {
-                print("No results was found")
+            if let results = request.results as? [VNRectangleObservation] {
+                     print(results)
+                            if results == [] {
+                                print("No results was found")
+                            }
+                            // if resutls more than one ??? what to do
+                //            for result in results {
+                //                print("results received: ", result)
+                //            }
+                            guard let result = results.first else {
+                                // alert
+                                print(error!.localizedDescription, "No Results Was Found!")
+                                return
+                            }
+      
+                let xCor: CGFloat = result.boundingBox.minX * image.extent.width
+                let yCor: CGFloat = result.boundingBox.minY * image.extent.height
+                let width: CGFloat = (result.boundingBox.width) * image.extent.width
+                let height: CGFloat = (result.boundingBox.height) * image.extent.height
+
+                let rect = CGRect(x: xCor, y: yCor, width: width, height: height)
+                //            var rect = CGRect()
+                //            rect.origin.x = (self.view.frame.size.width) * result.boundingBox.origin.y
+                //            rect.origin.y = (self.view.frame.size.height) * result.boundingBox.origin.x
+                //            rect.size.height = (self.view.frame.size.height) * result.boundingBox.width
+                //            rect.size.width = (self.view.frame.size.width) * result.boundingBox.height
+                
+//                                let transform = CGAffineTransform(scaleX: 1, y: -1).translatedBy(x: 0, y: -self.imageView.bounds.height).scaledBy(x: self.imageView.bounds.width, y: self.imageView.bounds.height)
+                    
+                            if self.imageView.image?.imageOrientation == .up || self.imageView.image?.imageOrientation == .upMirrored {
+                                print("Image Orientation up")
+                            } else if self.imageView.image?.imageOrientation == .leftMirrored || self.imageView.image?.imageOrientation == .left {
+                                print("Image Orientation Left Mirrored")
+                            } else if self.imageView.image?.imageOrientation == .right || self.imageView.image?.imageOrientation == .rightMirrored {
+                                print("Image Orientation right")
+                            } else if self.imageView.image?.imageOrientation == .down || self.imageView.image?.imageOrientation == .downMirrored {
+                                print("Image Orientation Down")
+                            }
+                  finalImage = self.cropImage(image: self.imageView.image!, rect: rect)
+
+                    self.imageView.image = finalImage
+                }
             }
-            // if resutls more than one ??? what to do
-//            for result in results {
-//                print("results received: ", result)
-//            }
-            guard let result = results.first else {
-                // alert
-                print(error!.localizedDescription, "No Results Was Found!")
-                return
-            }
-
-            let rect = CGRect(x: CGFloat(result.boundingBox.minX * image.extent.width), y: CGFloat(result.boundingBox.minY * image.extent.height), width: CGFloat((result.boundingBox.width) * image.extent.width) , height: CGFloat((result.boundingBox.height) * image.extent.height))
-            
-            print("Min, mid max X:", result.boundingBox.minX, result.boundingBox.midX, result.boundingBox.maxX)
-            print("Min, Mid, Max Y: ", result.boundingBox.minY, result.boundingBox.midY, result.boundingBox.maxY)
-
-//            var rect = CGRect()
-//            rect.origin.x = (self.view.frame.size.width) * result.boundingBox.origin.y
-//            rect.origin.y = (self.view.frame.size.height) * result.boundingBox.origin.x
-//            rect.size.height = (self.view.frame.size.height) * result.boundingBox.width
-//            rect.size.width = (self.view.frame.size.width) * result.boundingBox.height
-
-            print("Rect: ", rect)
-            print("Image: ", image.extent)
-            print("Bounding Box: ", result.boundingBox)
-            
-                let transform = CGAffineTransform(scaleX: 1, y: -1).translatedBy(x: 0, y: -self.imageView.bounds.height).scaledBy(x: self.imageView.bounds.width, y: self.imageView.bounds.height)
-            
-            if self.imageView.image?.imageOrientation == .up || self.imageView.image?.imageOrientation == .upMirrored {
-                print("Image Orientation up")
-            } else if self.imageView.image?.imageOrientation == .leftMirrored || self.imageView.image?.imageOrientation == .left {
-                print("Image Orientation Left Mirrored")
-            } else if self.imageView.image?.imageOrientation == .right || self.imageView.image?.imageOrientation == .rightMirrored{
-                print("Image Orientation right")
-            } else if self.imageView.image?.imageOrientation == .down || self.imageView.image?.imageOrientation == .downMirrored {
-                print("Image Orientation Down")
-            }
-
-            print(result.topLeft)
-            print(result.topRight)
-            print(result.bottomLeft)
-            print(result.bottomRight)
-            print(result.boundingBox)
-            
-            finalImage = self.cropImage(image: self.imageView.image!, rect: rect)
-
-            self.imageView.image = finalImage
-        }
-        
+  
         do {
             try imageHandler.perform([rectangleRequest])
         } catch {
@@ -166,11 +161,12 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToPDF" {
-            let vc = segue.destination as! PDFViewController
-            if self.segmentControl == false {
-                vc.resultImage = self.resultImage
-            } else {
-                vc.resultImage = self.resultImage
+            if let vc = segue.destination as? PDFViewController {
+                if self.segmentControl == false {
+                        vc.resultImage = self.resultImage
+                    } else {
+                        vc.resultImage = self.resultImage
+                    }
             }
         }
         // Get the new view controller using segue.destination.

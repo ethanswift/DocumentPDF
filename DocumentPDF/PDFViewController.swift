@@ -20,7 +20,6 @@ class PDFViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
     
     @IBOutlet weak var imageView: UIImageView!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -50,10 +49,10 @@ class PDFViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
             self.pdfFileName = textFiled.text!
             self.navigationController?.title = textFiled.text!
         }
-        alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { (alertAction) in
+        alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { (_) in
             self.savePDF()
         }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (alertAction) in
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (_) in
             self.webView.isHidden = true
         }))
         self.present(alert, animated: true, completion: nil)

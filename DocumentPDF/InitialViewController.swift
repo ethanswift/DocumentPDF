@@ -32,7 +32,7 @@ class InitialViewController: UIViewController {
         case 1:
             self.segmentControlPass = false
         default:
-            break;
+            break
         }
     }
     
@@ -46,8 +46,10 @@ class InitialViewController: UIViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToImagePicker" {
-            let vc = segue.destination as! ImageViewController
-            vc.segmentControl = self.segmentControlPass
+            if let vc = segue.destination as? ImageViewController {
+                vc.segmentControl = self.segmentControlPass
+            }
+            
         }
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
